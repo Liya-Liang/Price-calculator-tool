@@ -21,6 +21,7 @@ st.title("活动提报价格测算工具")
 st.caption("输入最低可接受活动价与折扣要求，倒推参考价/过去30天最低价的最低要求，并给出时间窗口")
 
 if 'first_run' not in st.session_state:
+    # 使用popover并自动展开
     with st.popover("🎉 欢迎使用活动提报价格测算工具", use_container_width=True, expanded=True):
         st.markdown("""
         # 价格计算工具使用说明
@@ -39,13 +40,15 @@ if 'first_run' not in st.session_state:
         - 所有数据仅在当前会话有效
         - 支持导出计算结果
         - 此工具仅作为价格推算参考，实际价格要求以卖家后台为准
-        
-        **点击外部区域关闭本说明**
         """)
+        
         # 添加关闭按钮
-        if st.button("🚀 开始使用", use_container_width=True):
+        if st.button("🚀 开始使用", use_container_width=True, type="primary"):
             st.session_state.first_run = True
             st.rerun()
+    
+    # 阻止后续代码执行，直到用户关闭弹窗
+    st.stop()
 
 with st.expander("单条计算", expanded=True):
     c1, c2, c3, c4, c5 = st.columns(5)
