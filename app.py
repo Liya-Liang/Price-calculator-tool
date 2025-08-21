@@ -1,3 +1,33 @@
+import streamlit as st
+
+# 应用启动时显示欢迎信息
+if 'first_run' not in st.session_state:
+    # 创建弹窗
+    with st.popover("🎉 欢迎使用活动提报价格测算工具", use_container_width=True):
+        st.markdown("""
+        # 价格计算工具使用说明
+        
+        ## 📖 功能简介
+        - 快速计算商品活动前价格要求，并给出价格策略建议
+        - 支持单条计算和批量导入/导出
+        - 支持CSV和XLSX格式
+        - 支持实时可视化结果
+        
+        ## 🚀 使用方法
+        1. 单条计算：在对应输入框中输入参数，点击计算，查看计算结果和操作建议
+        2. 批量导入/导出：下载模板，填写后上传，查看计算结果和操作建议,可直接线上查看结果也可批量下载结果
+        
+        ## 💡 提示
+        - 所有数据仅在当前会话有效
+        - 支持导出计算结果
+        - 此工具仅作为价格推算参考，实际价格要求以卖家后台为准
+        
+        **点击外部区域关闭本说明**
+        """)
+    
+    # 标记已经显示过
+    st.session_state.first_run = True
+
 from __future__ import annotations
 
 import io
