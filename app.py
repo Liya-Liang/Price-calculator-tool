@@ -42,6 +42,9 @@ if 'first_run' not in st.session_state:
             - 所有数据仅在当前会话有效
             - 支持导出计算结果
             - 此工具仅作为价格推算参考，实际价格要求以卖家后台为准
+            
+            ---
+            © 版权所有：Liya Liang
             """
         )
     # Inject a tiny script to auto-click the popover trigger after render
