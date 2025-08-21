@@ -1,10 +1,10 @@
-from __future__ import annotations
+from __future__ import annotations  # 这必须是第1行！
+
 import streamlit as st
 import pandas as pd
 import numpy as np
-from pricing import calculate_price  # 你的自定义模块
+from pricing import calculate_price
 
-# 然后是你的欢迎弹窗代码
 if 'first_run' not in st.session_state:
     with st.popover("🎉 欢迎使用活动提报价格测算工具", use_container_width=True):
         st.markdown("""
@@ -28,8 +28,6 @@ if 'first_run' not in st.session_state:
         **点击外部区域关闭本说明**
         """)
     st.session_state.first_run = True
-
-from __future__ import annotations
 
 import io
 from datetime import date
