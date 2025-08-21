@@ -1,22 +1,20 @@
-from __future__ import annotations  # 第1行
+from __future__ import annotations
 
-# 所有import语句集中在这里
-import streamlit as st
-import pandas as pd
-import numpy as np
 import io
 from datetime import date
 from typing import List
 
-# 从pricing模块导入需要的函数
+import streamlit as st
+import pandas as pd
+
 from pricing import (
-    calculate_price,
     InputRow,
     OutputRow,
     batch_calculate,
     to_dataframe,
-    template_dataframe
+    template_dataframe,
 )
+
 st.set_page_config(page_title="活动提报价格测算工具", layout="wide")
 
 st.title("活动提报价格测算工具")
