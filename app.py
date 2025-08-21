@@ -20,35 +20,68 @@ st.set_page_config(page_title="活动提报价格测算工具", layout="wide")
 st.title("活动提报价格测算工具")
 st.caption("输入最低可接受活动价与折扣要求，倒推参考价/过去30天最低价的最低要求，并给出时间窗口")
 
+# Welcome popover on first run (auto-open, close on outside click)
 if 'first_run' not in st.session_state:
-    # 使用popover并自动展开
-    with st.popover("🎉 欢迎使用活动提报价格测算工具", use_container_width=True, expanded=True):
-        st.markdown("""
-        # 价格计算工具使用说明
-        
-        ## 📖 功能简介
-        - 快速计算商品活动前价格要求，并给出价格策略建议
-        - 支持单条计算和批量导入/导出
-        - 支持CSV和XLSX格式
-        - 支持实时可视化结果
-        
-        ## 🚀 使用方法
-        1. 单条计算：在对应输入框中输入参数，点击计算，查看计算结果和操作建议
-        2. 批量导入/导出：下载模板，填写后上传，查看计算结果和操作建议,可直接线上查看结果也可批量下载结果
-        
-        ## 💡 提示
-        - 所有数据仅在当前会话有效
-        - 支持导出计算结果
-        - 此工具仅作为价格推算参考，实际价格要求以卖家后台为准
-        """)
-        
-        # 添加关闭按钮
-        if st.button("🚀 开始使用", use_container_width=True, type="primary"):
-            st.session_state.first_run = True
-            st.rerun()
-    
-    # 阻止后续代码执行，直到用户关闭弹窗
-    st.stop()
+    popover_label = "🎉 欢迎使用活动提报价格测算工具"
+    with st.popover(popover_label, use_container_width=True):
+        st.markdown(
+            """
+            # 价格计算工具使用说明
+            
+            ## 📖 功能简介
+            - 快速计算商品活动前价格要求，并给出价格策略建议
+            - 支持单条计算和批量导入/导出
+            - 支持CSV和XLSX格式
+            - 支持实时可视化结果
+            
+            ## 🚀 使用方法
+            1. 单条计算：在对应输入框中输入参数，点击计算，查看计算结果和操作建议
+            2. 批量导入/导出：下载模板，填写后上传，查看计算结果和操作建议,可直接线上查看结果也可批量下载结果
+            
+            ## 💡 提示
+            - 所有数据仅在当前会话有效
+            - 支持导出计算结果
+            - 此工具仅作为价格推算参考，实际价格要求以卖家后台为准
+            """
+        )
+    # Inject a tiny script to auto-click the popover trigger after render
+    try:
+        st.html(
+            """
+            <script>
+            (function openWelcome(){
+              const label = "🎉 欢迎使用活动提报价格测算工具";
+              function tryOpen(){
+                const btns = window.parent.document.querySelectorAll('button[data-testid="stPopoverButton"]');
+                for (const b of btns){ if ((b.innerText||'').includes(label)) { b.click(); return; } }
+                setTimeout(tryOpen, 150);
+              }
+              // Delay slightly to ensure DOM ready
+              setTimeout(tryOpen, 50);
+            })();
+            </script>
+            """,
+            height=0,
+        )
+    except Exception:
+        import streamlit.components.v1 as components  # type: ignore
+        components.html(
+            """
+            <script>
+            (function openWelcome(){
+              const label = "🎉 欢迎使用活动提报价格测算工具";
+              function tryOpen(){
+                const btns = window.parent.document.querySelectorAll('button[data-testid="stPopoverButton"]');
+                for (const b of btns){ if ((b.innerText||'').includes(label)) { b.click(); return; } }
+                setTimeout(tryOpen, 150);
+              }
+              setTimeout(tryOpen, 50);
+            })();
+            </script>
+            """,
+            height=0,
+        )
+    st.session_state.first_run = True
 
 with st.expander("单条计算", expanded=True):
     c1, c2, c3, c4, c5 = st.columns(5)
