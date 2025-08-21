@@ -17,6 +17,10 @@ from pricing import (
     to_dataframe,
     template_dataframe
 )
+st.set_page_config(page_title="活动提报价格测算工具", layout="wide")
+
+st.title("活动提报价格测算工具")
+st.caption("输入最低可接受活动价与折扣要求，倒推参考价/过去30天最低价的最低要求，并给出时间窗口")
 
 if 'first_run' not in st.session_state:
     with st.popover("🎉 欢迎使用活动提报价格测算工具", use_container_width=True):
@@ -41,11 +45,6 @@ if 'first_run' not in st.session_state:
         **点击外部区域关闭本说明**
         """)
     st.session_state.first_run = True
-
-st.set_page_config(page_title="活动提报价格测算工具", layout="wide")
-
-st.title("活动提报价格测算工具")
-st.caption("输入最低可接受活动价与折扣要求，倒推参考价/过去30天最低价的最低要求，并给出时间窗口")
 
 with st.expander("单条计算", expanded=True):
     c1, c2, c3, c4, c5 = st.columns(5)
