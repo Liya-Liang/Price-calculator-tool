@@ -1,9 +1,22 @@
-from __future__ import annotations  # 这必须是第1行！
+from __future__ import annotations  # 第1行
 
+# 所有import语句集中在这里
 import streamlit as st
 import pandas as pd
 import numpy as np
-from pricing import calculate_price
+import io
+from datetime import date
+from typing import List
+
+# 从pricing模块导入需要的函数
+from pricing import (
+    calculate_price,
+    InputRow,
+    OutputRow,
+    batch_calculate,
+    to_dataframe,
+    template_dataframe
+)
 
 if 'first_run' not in st.session_state:
     with st.popover("🎉 欢迎使用活动提报价格测算工具", use_container_width=True):
@@ -28,21 +41,6 @@ if 'first_run' not in st.session_state:
         **点击外部区域关闭本说明**
         """)
     st.session_state.first_run = True
-
-import io
-from datetime import date
-from typing import List
-
-import streamlit as st
-import pandas as pd
-
-from pricing import (
-    InputRow,
-    OutputRow,
-    batch_calculate,
-    to_dataframe,
-    template_dataframe,
-)
 
 st.set_page_config(page_title="活动提报价格测算工具", layout="wide")
 
